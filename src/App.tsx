@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter as Router, useRoutes} from 'react-router-dom'
+import { CssVarsProvider, useTheme } from '@mui/joy/styles'
+import '@fontsource/inter';
+import { joiTheme } from './themes/JoiTheme'
+import { routes } from './routes/Routes'
+import { Box } from '@mui/joy';
 
 function App() {
+  return useRoutes(routes())
+}
+const AppWrapper = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <Router>
+        <CssVarsProvider theme={joiTheme}>
+        <Box sx={(theme) => ({ backgroundColor: theme.vars.palette.background.body, minHeight: '100vh'}) }>
+          <App />
+        </Box>
+        </CssVarsProvider>
+      </Router>
+  )
 }
 
-export default App;
+export default AppWrapper
